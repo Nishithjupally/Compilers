@@ -1,0 +1,15 @@
+#include <cup.h>
+
+int print(string s){
+	return 0;
+}
+
+int main ()				//basic printing
+{
+  int a = 1;
+  int b = 2;
+  char b = 'a';
+  float f = a;
+  b = a++;
+  return b;
+}

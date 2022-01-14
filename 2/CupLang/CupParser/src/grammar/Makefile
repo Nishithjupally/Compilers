@@ -1,0 +1,17 @@
+ANTLR_JAR = /usr/lib/antlr-4.8-complete.jar
+ANTLR = java -jar $(ANTLR_JAR)
+ANTLR_OUT_DIR = ../java
+PACKAGE = Cup
+ANTLR_FLAGS = -no-listener -visitor -package $(PACKAGE)
+LEXER = CupLexer
+PARSER = CupParser
+
+%: all
+
+all:
+	$(ANTLR) $(ANTLR_FLAGS) -o $(ANTLR_OUT_DIR)/$(PACKAGE)/ -lib $(ANTLR_OUT_DIR)/$(PACKAGE)/ $(PARSER).g4
+
+clean:
+	rm -rf ../java/$(PACKAGE)/*.class
+	rm -rf ../java/$(PACKAGE)/$(PARSER)*.java
+	rm -rf ../java/$(PACKAGE)/$(PARSER)*.tokens

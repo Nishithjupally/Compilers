@@ -1,0 +1,21 @@
+#include <cup.h>
+
+int print(string s){
+	return 0;
+}
+
+int main ()				//basic printing
+{
+  int a = 1;
+  int b = 2;
+  float d = 1.0;
+  int c = a + b;
+  z = c;
+  string s = "ss";
+  string t = "tt";
+  s = a;
+  b = t;
+  d = a;
+  b = d;
+  return c;
+}

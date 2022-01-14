@@ -1,0 +1,22 @@
+#include <cup.h>
+
+int print(string s){
+	return 0;
+}
+
+int plus(int a,int b){
+    c = a+b;
+    return a+b;
+}
+
+int main ()
+{
+  int a = 10;
+  int b = 20;
+  int c = plus(a,b);
+  int d = plus(a);
+  string s = plus(a,b);
+  float f = plus(a,b);
+  int e = pluss(a,b);
+  return c;
+}

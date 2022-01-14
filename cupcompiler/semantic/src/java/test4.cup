@@ -1,0 +1,17 @@
+#include <cup.h>
+
+int print(string s){
+	return 0;
+}
+
+int main ()				//basic printing
+{
+int a = 10;int b = 10;
+int i;
+for(i=0;i<a;i++){
+int b = 10;
+	a++;	
+}
+  print("HelloWorld!");
+  return 0;
+}

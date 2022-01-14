@@ -1,0 +1,16 @@
+#include<cup.h>
+
+
+int ab(int a,int b){
+	a = a + b;
+	b = b + a;
+	return a+b;
+}
+int
+main ()
+{
+  int a = 10;
+int b = 20;
+ b = ab(a,b);
+   return 0;
+}

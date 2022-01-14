@@ -1,0 +1,41 @@
+#include <cup.h>
+#define h 198198198
+
+
+
+int
+foo (vector (int) v)		//testing function definition, vector 
+{
+  stack (int) s;		//testing stack declaration
+  int i = 0;
+  while (i == 0)		//testing while loop
+    {
+
+    }
+
+  // a = 5(00000101), b = 9(00001001) 
+  int a = 5, b = 9;
+
+
+  //logical operator
+  bool flag = a && b;
+  bool flag2 = a || b;
+
+  //bitwise operation
+  print ("a&b = %i\n", a & b);
+
+  print ("a|b = %i\n", a | b);
+
+  print ("a^b = %i\n", a ^ b);
+
+
+  print ("~a = %d\n", a = ~a);
+
+  print ("b<<1 = %d\n", b << 1);
+
+  print ("b>>1 = %d\n", b >> 1);
+
+
+
+  return 0;
+}

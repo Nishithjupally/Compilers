@@ -1,0 +1,10 @@
+ To compile and Run
+$ yacc -d binarytodecimal.y
+$ lex binarytodecimal.l
+$ gcc lex.yy.c y.tab.c -ll
+$ ./a.out
+Enter the input - eg.1101
+Output:13
+U can entger integer or decimal also.
+input :11.1
+output:3.5

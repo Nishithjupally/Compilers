@@ -1,0 +1,82 @@
+# COOL Compiler #
+
+# COOL Lexical Analyzer#
+
+This ReadMe file has explanations for design decisions taken to make a Lexer for cool language from the given skeleton code.
+The given code had the list of token in it with a 'reportError' function and a partialy completed 'processString' function.
+
+The lexer handles strings and errors in strings, comments(both single line and multi line comments) and errors in comments and tokenize the elements of code as required.
+
+Design Rules:
+
+1.Identifiers:
+Type identifiers begin with a capital letter, object identifiers begin with a lower case letter, they are defined as follows:
+
+TYPEID		: ('A'..'Z')('_'|LETTER|DIGIT)*;
+OBJECTID	: ('a'..'z')('_'|LETTER|DIGIT)*;
+
+where LETTER and DIGIT are defined as 
+DIGIT	: '0'..'9';
+LETTER	: ('a'..'z'|'A'..'Z');
+
+2.Keywords:
+All the keywords except true and false, are case insensitive. For example keyword CLASS is defined as
+
+CLASS		: ('c'|'C')('l'|'L')('a'|'A')('s'|'S')('s'|'S');
+
+Similarly other keywords are defined.
+
+3.Operators:
+Operators like ';','<-', etc are defined with their token name. For example
+
+SEMICOLON   : ';';
+
+Similarly other operators are defined.
+
+4.Constants:
+Bool, Int and string constants are defined as follows:
+
+BOOL_CONST	: 't'('r'|'R')('u'|'U')('e'|'E') | 'f'('a'|'A')('l'|'L')('s'|'S')('e'|'E');
+INT_CONST	: DIGIT+;
+STR_CONST   : '"'(ESC_SEQUENCE | ~('\\'|'"'|'\n'))*'"'{processString();};
+
+where DIGIT	and ESC_SEQUENCE are defined as
+DIGIT	: '0'..'9';
+ESC_SEQUENCE : '\\'.;
+
+Since Bool_Constants are case sensitive, they start only with lower case letters. String constants start and end with '"' and they do not have new line and '"' in between them but the escaped newline is allowed as depicted in the regular expression. Obviously integer constants anre digits occuring atleast once and for any number of times.
+
+5.Spaces:
+WHITESPACE	: [ \t\r\n\f\b\u000b]+ -> skip ;
+
+This expression covers all different types of spaces in code.
+
+6.Strings:
+Lot of errors could posssibly happen in strings.
+When we encounter a '"' and it is not a string constant, string mode is triggered.
+Cases covered are :
+a).Null/Escaped null character in strings.
+b).Unescaped New line.
+c).End of file in string.
+d).backslash at end of file.(Happens if we hit \ at Eof in stringmode)
+e).String constant too long.(Has precedence over EOF in case of both errors)
+
+Regular expressions have been written in string mode for each of these(Avoided presenting all of them here to avoid increasing the length of readme unneccessarily).String length error has been handled in process string function.
+
+7.Comments :
+ONELINECOMMENT			: '--' .*? ('\n'| (EOF) )-> skip;
+WRONGCOMMENT	: '*)' {reportError("Unmatched *)");};
+BEGINNESTEDCOMMENT1		: '(*' -> pushMode(IN_MULTI_COMMENT), skip;
+
+When we encounter '--', it is the start of single line comment and we skip everything till the new line. Encountering an EOF in a single line comment is not considered an erroneous case.
+
+If we encounter '*)' before a '(*', then we report and error and when we encounter '(*', we start multiline comments mode. Within a multiline comments mode, if we encounter a '(*',  we enter nested comments mode and if we encounter '*)', we just pop out. EOF if case of multi line comment if reported as an error.
+
+8.Incorrect characters:
+Just in case a character doesn't match any of the above rules, then we declare it as an error using unmatched function and using the below regular expression.
+
+OTHER		: . {unmatched();}; 
+
+
+
+

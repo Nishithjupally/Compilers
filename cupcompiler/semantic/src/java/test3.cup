@@ -1,0 +1,11 @@
+#include <cup.h>
+
+int print(string s){
+	return 0;
+}
+
+int main ()				//basic printing
+{
+  print("HelloWorld!");
+  return 0;
+}

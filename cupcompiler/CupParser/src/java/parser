@@ -1,0 +1,2 @@
+#!/bin/bash
+java -cp .:/usr/lib/antlr-4.8-complete.jar org.antlr.v4.gui.TestRig Cup.Cup program -gui $1

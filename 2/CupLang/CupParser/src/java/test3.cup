@@ -1,0 +1,136 @@
+#include <stdio.h>
+
+void
+swap (int *a, int *b)
+{
+  int t = *a;
+  *a = *b;
+  *b = t;
+}
+
+int
+partition (int arr[], int low, int high)                 
+{
+  int pivot = arr[high];	// pivot 
+  int i = (low - 1);		// Index of smaller element 
+
+  for (int j = low; j <= high - 1; j++)
+    {
+      // If current element is smaller than the pivot 
+      if (arr[j] < pivot)
+	{
+	  i++;			// increment index of smaller element 
+	  swap (&arr[i], &arr[j]);
+	}
+    }
+  swap (&arr[i + 1], &arr[high]);
+  return (i + 1);
+}
+
+void
+quickSort (int arr[], int low, int high)
+{
+  if (low < high)
+    {
+      /* pi is partitioning index, arr[p] is now 
+         at right place */
+      int pi = partition (arr, low, high);
+
+      // Separately sort elements before 
+      // partition and after partition 
+      quickSort (arr, low, pi - 1);
+      quickSort (arr, pi + 1, high);
+    }
+}
+
+void
+printArray (int arr[], int size)
+{
+  int i;
+  for (i = 0; i < size; i++)
+    printf ("%d ", arr[i]);
+  printf ("\n");
+}
+
+
+void
+merge (int A[], int start, int m, int end)	//This function merges sorted array
+{
+  int i, j, k;
+  int left = m - start + 1;
+  int right = end - m;
+  int L[left];
+  int R[right];
+  for (i = 0; i < left; i++)
+    {
+      L[i] = A[start + i];
+    }
+  for (j = 0; j < right; j++)
+    {
+      R[j] = A[m + 1 + j];
+    }
+  i = 0;
+  j = 0;
+  k = start;
+  while (i < left && j < right)
+    {
+      if (L[i] <= R[j])
+	{
+	  A[k] = L[i];
+	  i = i + 1;
+	}
+      else
+	{
+	  A[k] = R[j];
+	  j = j + 1;
+	}
+      k = k + 1;
+    }
+  while (i < left)
+    {
+      A[k] = L[i];
+      i = i + 1;
+      k = k + 1;
+    }
+  while (j < right)
+    {
+      A[k] = R[j];
+      j = j + 1;
+      k = k + 1;
+    }
+}
+
+void
+mergesort (int A[], int start, int end)	
+{
+  if (start < end)
+    {
+      int m = (start + end) / 2;
+      mergesort (A, start, m);
+      mergesort (A, m + 1, end);
+      merge (A, start, m, end);
+    }
+
+}
+
+int
+main (void)
+{
+  int n, j;
+
+  printf ("Enter the number of elements to be sorted:");
+  scan ("%i", &n);
+  int A[n];
+
+  printf ("Enter the %d elements: ", n);
+  for (j = 0; j < n; j++)
+    {
+      scan ("%i", &A[j]);
+    }
+  mergesort (A, 0, n - 1);
+  for (int j = 0; j < n; j++)
+    {
+      print ("%i\t", A[j]);
+    }
+  return 0;
+}

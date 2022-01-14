@@ -1,0 +1,75 @@
+#include <cup.h>
+
+#define nd6 #4
+
+struct node			//testing struct
+{
+  int data;
+  struct node *left;
+  struct node *right;
+};
+
+struct node *root = NULL;
+
+void
+insert (int k)
+{
+  struct node *temp = (struct node *) malloc (sizeof (int));	//struct declaration
+  temp->data = k;
+  temp->left = NULL;
+  temp->right = NULL;
+
+  if (root == NULL)
+    {
+      root = temp;
+    }
+  else
+    {
+      struct node *m, parent;
+      m = root;
+      while (m)
+	{
+	  parent = m;
+	  if (temp->data > m->data)
+	    {
+	      m = m->right;
+	    }
+	  else
+	    {
+	      m = m->left;
+	    }
+	}
+      if (temp->data > parent->data)
+	{
+	  parent->right = temp;
+	}
+      else
+	{
+	  parent->left = temp;
+	}
+    }
+}
+
+void
+inorder (struct node *t)
+{
+  if (t->left)
+    inorder (t->left);
+  printf ("%d,", t->data);
+  if (t->right)
+    inorder (t->right);
+}
+
+int
+main (void)
+{
+  insert (0);
+  insert (1);
+  insert (1);
+  insert (80);
+  insert (54);
+
+  inorder (root);
+
+  return 0;
+}
